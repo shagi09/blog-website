@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
   const[user,setUser]=useState({
@@ -10,6 +11,7 @@ const Register = () => {
     password:'',
     confirmPassword:''
   })
+  const navigate=useNavigate()
   function HandleChange(e){
     setUser((previousState)=>(
       {
@@ -22,7 +24,11 @@ const Register = () => {
   function HandleSubmit(e){
     e.preventDefault()
     axios.post('http://127.0.0.1:3001/register',{name:user.name,email:user.email,password:user.password,confirmPassword:user.confirmPassword})
-    .then(result=>console.log(result)).catch(err=>console.log(err)
+    .then(result=>{console.log(result)
+      navigate('/login')
+    })
+    
+    .catch(err=>console.log(err)
     )
 
 

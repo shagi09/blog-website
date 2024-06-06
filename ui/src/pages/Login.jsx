@@ -1,14 +1,15 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
 
 const Login = () => {
   const[user,setUser]=useState({
-    name:'',
     email:'',
-    password:'',
-    confirmPassword:''
+    password:''
   })
+  const navigate=useNavigate()
   function HandleChange(e){
     setUser((previousState)=>(
       {
@@ -18,23 +19,42 @@ const Login = () => {
     ))
 
   }
+  function HandleSubmit(e){
+    e.preventDefault()
+    axios.post('http://127.0.0.1:3001/login',{email:user.email,password:user.password})
+    .then(result=>{console.log(result)
+      if(result.data=='success'){
+        navigate('/')
+
+      }
+    })
+    
+    .catch(err=>console.log(err)
+    )
+  }
+  
   return (
     <div className='register-container'>
       <div className='register'>
         <h1>Sign in</h1>
         <p>This is an error message</p>
+        <form action="" onSubmit={HandleSubmit}>
         <input type="email" name='email' placeholder='Email'value={user.email} onChange={HandleChange} />
         <input type="password" name='password' placeholder='Password'value={user.password} onChange={HandleChange} />
+        <button type='submit' className='edit-btn'>Log in</button>
+        </form>
+
 
 
 
       </div><br />
-      <button className='edit-btn'>Log in</button>
+
       <p>Don't have an account?<Link to='/register'>Register</Link></p>
 
       
     </div>
   )
 }
+
 
 export default Login
