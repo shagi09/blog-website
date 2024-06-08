@@ -9,6 +9,7 @@ const Login = () => {
     email:'',
     password:''
   })
+const [success,setSuccess]=useState('')
   const navigate=useNavigate()
   function HandleChange(e){
     setUser((previousState)=>(
@@ -24,6 +25,7 @@ const Login = () => {
     axios.post('http://127.0.0.1:3001/login',{email:user.email,password:user.password})
     .then(result=>{console.log(result)
       if(result.data=='success'){
+        setSuccess('success')
         navigate('/')
 
       }
@@ -37,7 +39,7 @@ const Login = () => {
     <div className='register-container'>
       <div className='register'>
         <h1>Sign in</h1>
-        <p>This is an error message</p>
+        <p>{success}</p>
         <form action="" onSubmit={HandleSubmit}>
         <input type="email" name='email' placeholder='Email'value={user.email} onChange={HandleChange} />
         <input type="password" name='password' placeholder='Password'value={user.password} onChange={HandleChange} />
