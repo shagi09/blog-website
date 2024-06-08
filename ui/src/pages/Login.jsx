@@ -9,7 +9,7 @@ const Login = () => {
     email:'',
     password:''
   })
-const [success,setSuccess]=useState('')
+const [error,setError]=useState('')
   const navigate=useNavigate()
   function HandleChange(e){
     setUser((previousState)=>(
@@ -24,10 +24,15 @@ const [success,setSuccess]=useState('')
     e.preventDefault()
     axios.post('http://127.0.0.1:3001/login',{email:user.email,password:user.password})
     .then(result=>{console.log(result)
-      if(result.data=='success'){
-        setSuccess('success')
-        navigate('/')
+      if(result.data=='incorrect password'){
+        setError('wrong password')
+      }
+      else if(result.data=='no registered'){
+        setError('wrong email')
 
+      }
+      else{
+        navigate('/')
       }
     })
     
@@ -39,7 +44,7 @@ const [success,setSuccess]=useState('')
     <div className='register-container'>
       <div className='register'>
         <h1>Sign in</h1>
-        <p>{success}</p>
+        <p>{error}</p>
         <form action="" onSubmit={HandleSubmit}>
         <input type="email" name='email' placeholder='Email'value={user.email} onChange={HandleChange} />
         <input type="password" name='password' placeholder='Password'value={user.password} onChange={HandleChange} />
