@@ -27,7 +27,7 @@ const [error,setError]=useState('')
       if(result.data=='incorrect password'){
         setError('wrong password')
       }
-      else if(result.data=='no registered'){
+      else if(result.data=='not registered'){
         setError('wrong email')
 
       }
