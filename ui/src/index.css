@@ -47,6 +47,9 @@ img{
     align-items: center;
     gap: 3rem;
 }
+.logout{
+    margin-top: 80px;
+}
 
 nav{
     width: 100vw;

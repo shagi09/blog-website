@@ -32,6 +32,7 @@ const [error,setError]=useState('')
 
       }
       else{
+        window.localStorage.setItem('isLoggedIn',true)
         navigate('/')
       }
     })

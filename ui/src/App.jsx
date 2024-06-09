@@ -19,14 +19,16 @@ import AuthorPosts from './pages/AuthorPosts'
 import Layout from './components/Layout'
 import RegisterLayout from './components/RegisterLayout'
 import LogInLayout from './components/LogInLayout'
+import LogOutLayout from './components/LogOutLayout'
 
 
 function App() {
+  const login=window.localStorage.getItem('isLoggedIn')
 
 
   return (
     <Routes>
-        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/" element={<Layout>{login?<Home />: <LogInLayout><Login/></LogInLayout>}</Layout>} />
   <Route path="posts/:id" element={<Layout><PostDetail /></Layout>} />
   <Route path="register" element={<RegisterLayout><Register /></RegisterLayout>} />
   <Route path="login" element={<LogInLayout><Login /></LogInLayout>} />
@@ -39,7 +41,7 @@ function App() {
   <Route path="myposts/:id" element={<Layout><DashBoard /></Layout>} />
   <Route path="posts/:id/edit" element={<Layout><EditPost /></Layout>} />
   <Route path="posts/:id/delete" element={<Layout><DeletePost /></Layout>} />
-  <Route path="logout" element={<Layout><Logout /></Layout>} />
+  <Route path="logout" element={<LogOutLayout><Logout /></LogOutLayout>} />
   <Route path="*" element={<Layout><ErrorPage /></Layout>} />
 
 
