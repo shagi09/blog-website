@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const LogOut = () => {
   const navigate=useNavigate()
   function LogOut(){
-    window.localStorage.removeItem('isLoggedIn')
+    window.localStorage.setItem('isLoggedIn',false)
     navigate('/login')
 
 

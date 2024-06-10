@@ -3,6 +3,9 @@ import { MdMovieEdit } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
 import avatar from '../images/avatar10.jpg';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
+import { useEffect } from 'react';
 
 
 
@@ -15,6 +18,21 @@ const UserProfile = () => {
     newPassword:'',
     confirmPassword:''
   })
+  const navigate=useNavigate('')
+
+  const checkLoginStatus = useCallback(() => {
+    // Check if the user is logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    if (isLoggedIn=='false') {
+      // Redirect the user to the login page if they are not logged in
+      navigate('/login');
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, [checkLoginStatus]);
   function HandleInput(e){
     setData((previousState)=>({
        ...previousState,[e.target.name]:e.target.value

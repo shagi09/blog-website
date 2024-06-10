@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
 
 
   const formats = [
@@ -24,6 +26,21 @@ const CreatePost = () => {
   const [thumbnail,setThumbnail]=useState('')
   const [description,setDescription]=useState('')
   const [category,setCategory]=useState('')
+  const navigate=useNavigate('')
+
+  const checkLoginStatus = useCallback(() => {
+    // Check if the user is logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    if (isLoggedIn=='false') {
+      // Redirect the user to the login page if they are not logged in
+      navigate('/login');
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, [checkLoginStatus]);
   return (
     <div className='createPost-container'>
         <div className='createPost'>
