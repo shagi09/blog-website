@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
+import axios from 'axios'
 
 
   const formats = [
@@ -24,9 +25,51 @@ import { useCallback } from 'react';
 const CreatePost = () => {
   const [title,setTitle]=useState('')
   const [thumbnail,setThumbnail]=useState('')
-  const [description,setDescription]=useState('')
+  const [content,setContent]=useState('')
   const [category,setCategory]=useState('')
   const navigate=useNavigate('')
+
+  async function HandleSubmit(e){
+    e.preventDefault(e)
+    const formData=new FormData()
+    formData.append('title',title)
+    formData.append('category',category)
+    formData.append('content',content)
+    formData.append('thumbnail',thumbnail)
+
+    /*axios.post('http://127.0.0.1:3001/create',formData).then(result=>console.log(result).catch(err=>console.log(err)))*/
+    try {
+      const response = await axios.post('http://127.0.0.1:3001/create', formData);
+      console.log(response.data);
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    }
+
+
+
+
+  }
+  const handleThumbnailChange = (e) => {
+    setThumbnail(e.target.files[0]);
+  };
+  const handleContentChange = (value) => {
+    setContent(value);
+  };
+
 
   const checkLoginStatus = useCallback(() => {
     // Check if the user is logged in
@@ -48,6 +91,7 @@ const CreatePost = () => {
           <div className='error-message'>
             this is error message
           </div>
+          <form action="" onSubmit={HandleSubmit}>
           <div className='title'>
             <input type="text" placeholder='title' value={title} onChange={e=>setTitle(e.target.value)}/>
           </div>
@@ -61,12 +105,15 @@ const CreatePost = () => {
               }
 
               </select>
-            <ReactQuill  formats={formats} value={description} onChange={e=>setDescription(value)}/>
-            <input type="file"  value={thumbnail} onChange={e=>setThumbnail(e.target.files[0])}  />
-            <button className='edit-btn'>Submit</button>
+            <ReactQuill  formats={formats} value={content} onChange={handleContentChange}/>
+            <input type="file"  onChange={handleThumbnailChange}  />
+            <button type='submit' className='edit-btn'>Submit</button>
+            </div>
+          </form>
 
 
-          </div>
+
+          
         </div>
       
     </div>

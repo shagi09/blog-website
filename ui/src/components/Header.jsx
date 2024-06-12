@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import image from '../images/blog15.jpg'
+import axios from 'axios'
+import { useEffect } from 'react'
 
 const Header = () => {
+
+
+
 
 
   return (
@@ -14,7 +19,7 @@ const Header = () => {
         </Link>
 
         <ul className='nav_menu'>
-          <li><Link to='/profile/:id'>shalom wubu</Link></li>
+          <li><Link to='/profile/:id'></Link></li>
           <li><Link to='/create'>create post</Link></li>
           <li><Link to='/authors'>Authors</Link></li>
           <li><Link to='/logout'>logout</Link></li>

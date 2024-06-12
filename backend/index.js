@@ -2,6 +2,9 @@ const express=require('express')
 const mongoose=require('mongoose')
 const cors=require('cors')
 const EmployeeModel=require('./models/Employee')
+const PostModel=require('./models/posts')
+const multer=require('multer')
+const path=require('path')
 
 const app=express()
 app.use(express.json())
@@ -24,6 +27,24 @@ app.post('/register',(req,res)=>{
     
 
 })
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() 
+      cb(null, uniqueSuffix + file.originalname)
+    }
+  })
+  
+  const upload = multer({ storage: storage })
+
+  app.post('/create', upload.single('thumbnail'), async (req, res) => {
+    const {title,category,content,thumbnail}=req.body
+    PostModel.create(req.body).then(posts=>res.json(posts).catch(err=>console.log(err)))
+  });
+
 
 app.post('/login',(req,res)=>{
     const {email,password}=req.body
