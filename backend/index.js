@@ -33,16 +33,17 @@ const storage = multer.diskStorage({
       cb(null, 'uploads/')
     },
     filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() 
-      cb(null, uniqueSuffix + file.originalname)
+ 
+      cb(null, `${Date.now()}_${file.originalname}`)
     }
   })
   
   const upload = multer({ storage: storage })
 
   app.post('/create', upload.single('thumbnail'), async (req, res) => {
-    const {title,category,content,thumbnail}=req.body
-    PostModel.create(req.body).then(posts=>res.json(posts).catch(err=>console.log(err)))
+    const {title,category,content}=req.body
+    const thumbnail=req.file.filename
+    await PostModel.create({title,category,content,thumbnail}).then(result=>res.json(result)).catch(err=>console.log(err))
   });
 
 

@@ -29,7 +29,7 @@ const CreatePost = () => {
   const [category,setCategory]=useState('')
   const navigate=useNavigate('')
 
-  async function HandleSubmit(e){
+   function HandleSubmit(e){
     e.preventDefault(e)
     const formData=new FormData()
     formData.append('title',title)
@@ -37,27 +37,10 @@ const CreatePost = () => {
     formData.append('content',content)
     formData.append('thumbnail',thumbnail)
 
-    /*axios.post('http://127.0.0.1:3001/create',formData).then(result=>console.log(result).catch(err=>console.log(err)))*/
-    try {
-      const response = await axios.post('http://127.0.0.1:3001/create', formData);
-      console.log(response.data);
-    } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
-    }
+    axios.post('http://127.0.0.1:3001/create',formData)
+    .then(result=>console.log(result)
+    .catch(err=>console.log(err)))
+
 
 
 
