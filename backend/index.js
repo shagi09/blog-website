@@ -30,7 +30,7 @@ app.post('/register',(req,res)=>{
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads/')
+      cb(null, '../ui/src/images')
     },
     filename: function (req, file, cb) {
  
@@ -45,6 +45,9 @@ const storage = multer.diskStorage({
     const thumbnail=req.file.filename
     await PostModel.create({title,category,content,thumbnail}).then(result=>res.json(result)).catch(err=>console.log(err))
   });
+  app.get('/post', async (req,res)=>{
+    PostModel.find().then(data=>res.json(data)).catch(err=>console.log(err))
+  })
 
 
 app.post('/login',(req,res)=>{

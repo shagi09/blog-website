@@ -374,6 +374,9 @@ input{
     border-radius: 15px;
     padding: 5px;
 }
+.fetch{
+    margin-top: 80px;
+}
 
 /*media queries*/
 @media (max-width: 768px) {

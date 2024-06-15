@@ -3,20 +3,20 @@ import { Link } from 'react-router-dom'
 import PostAuthor from './PostAuthor'
 
 
-const PostItem = ({postID,desc,title,thumbnail,category,authorID}) => {
+const PostItem = ({postID,content,title,thumbnail,category}) => {
   return (
     <article className='post'>
       <div className='post_thumbnail'>
-        <img src={thumbnail} alt={title} />
+      <img src={`http://localhost:5173/src/images/${thumbnail}`} />
 
       </div>
       <div className='post_content'>
         <Link to={`/posts/${postID}`} className='post-title'>
           <h3>{title}</h3>
         </Link>
-        <p>{desc}</p>
+        <p>{content}</p>
         <div className='post_footer'>
-          <PostAuthor authorID={authorID}/>
+          <PostAuthor />
           <Link to={`posts/categories/${category}`} className='category'><button className='category-btn'>{category}</button></Link>
           
 

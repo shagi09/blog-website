@@ -20,6 +20,7 @@ import Layout from './components/Layout'
 import RegisterLayout from './components/RegisterLayout'
 import LogInLayout from './components/LogInLayout'
 import LogOutLayout from './components/LogOutLayout'
+import FetchedPosts from './pages/fetchedposts'
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
   <Route path="posts/:id/edit" element={<Layout><EditPost /></Layout>} />
   <Route path="posts/:id/delete" element={<Layout><DeletePost /></Layout>} />
   <Route path="logout" element={<LogOutLayout><Logout /></LogOutLayout>} />
+  <Route path='fetch' element={<Layout><FetchedPosts/></Layout>}></Route>
   <Route path="*" element={<Layout><ErrorPage /></Layout>} />
 
 
